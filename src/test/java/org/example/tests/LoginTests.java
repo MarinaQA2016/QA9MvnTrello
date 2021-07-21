@@ -2,6 +2,7 @@ package org.example.tests;
 
 
 import org.example.pages.*;
+import org.example.util.DataProviders;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -30,11 +31,18 @@ public class LoginTests extends TestBase{
         Assert.assertEquals(loginPage.getErrorMessage(),"There isn't an account for this username",
                 "The error message is not correct");
     }
-    @Test
-    public void positiveLogin()  {
-        loginPage.loginAsAttl(LOGIN,PASSWORD);
+    @Test (dataProviderClass = DataProviders.class, dataProvider = "dataProviderThird")
+    public void negativeLoginThirdDataProv(String login, String password)  {
+        loginPage.loginNotAttl(login,password);
+        Assert.assertEquals(loginPage.getErrorMessage(),"There isn't an account for this email",
+                "The error message is not correct");
+    }
+    @Test(dataProviderClass = DataProviders.class, dataProvider ="dataProviderSecond")
+    public void positiveLogin(String login, String password, String nameButton)  {
+        //loginPage.loginAsAttl(LOGIN,PASSWORD);
+        loginPage.loginAsAttl(login,password);
         boardsPage.waitUntilPageIsLoaded();
-        Assert.assertEquals(boardsPage.getBoardsButtonName(),"Boards",
+        Assert.assertEquals(boardsPage.getBoardsButtonName(),nameButton,
         "Name of the button is not 'Boards'");
 
     }
