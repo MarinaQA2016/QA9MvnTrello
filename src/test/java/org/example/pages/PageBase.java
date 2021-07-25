@@ -90,7 +90,23 @@ public class PageBase {
             e.printStackTrace();
         }
     }
+    public void waitUntilWindowsToBe(int quantity, int time) {
+        try {
+            new WebDriverWait(driver, time).until(ExpectedConditions.numberOfWindowsToBe(quantity));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public String getAnotherHandle(String handleWindowFirst) {
+        String res = "";
+        for (String handle: driver.getWindowHandles()){
+            if (!handle.equals(handleWindowFirst)) res= handle;
+        }
+        return res;
+    }
 
 
-
+    protected void closeCurrentWindow() {
+        driver.close();
+    }
 }

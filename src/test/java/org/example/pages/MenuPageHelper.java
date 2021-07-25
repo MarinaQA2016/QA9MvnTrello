@@ -13,6 +13,8 @@ public class MenuPageHelper extends PageBase {
     WebElement profileMemberMenu;
     @FindBy(xpath = "//span[contains(text(),'Activity')]")
     List<WebElement> activityMenuList;
+    @FindBy(xpath = "//*[contains(text(),'Help')]")
+    List<WebElement> helpMenuList;
 
     public MenuPageHelper(WebDriver driver){
         this.driver = driver;
@@ -26,6 +28,7 @@ public class MenuPageHelper extends PageBase {
     public void waitUntilPageIsLoaded() {
         waitUntilElementIsClickable(profileMemberMenu,5);
         waitUntilElementIsClickable(activityMenuList.get(1),5);
+        waitUntilElementIsClickable(helpMenuList.get(1),5);
     }
 
     public String getProfileVisibilityMenuName() {
@@ -34,5 +37,9 @@ public class MenuPageHelper extends PageBase {
 
     public void openActivityPage(){
         activityMenuList.get(1).click();
+    }
+
+    public void openHelpWindow() {
+        helpMenuList.get(1).click();
     }
 }

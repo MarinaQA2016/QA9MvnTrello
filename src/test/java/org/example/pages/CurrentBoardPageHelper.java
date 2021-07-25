@@ -39,6 +39,8 @@ public class CurrentBoardPageHelper extends PageBase {
     List<WebElement> collumnsMenuList;
     @FindBy(css = ".js-close-list")
     WebElement archiveMenuOption;
+    @FindBy (css = ".js-board-editing-target")
+    WebElement boardNameButton;
 
     String boardName;
     public CurrentBoardPageHelper(WebDriver driver, String boardName){
@@ -149,5 +151,13 @@ public class CurrentBoardPageHelper extends PageBase {
         waitUntilElementIsClickable(archiveMenuOption,10);
         archiveMenuOption.click();
         waitUntilElementsBecome(By.cssSelector(".js-list-content"),beginLists-1,5);
+    }
+
+    public boolean isCorrectPage() {
+        return boardNameButton.getText().equals(boardName);
+    }
+
+    public String getNameBoard() {
+        return boardName;
     }
 }

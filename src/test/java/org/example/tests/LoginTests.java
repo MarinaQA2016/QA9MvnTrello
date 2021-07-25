@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.Random;
+
 public class LoginTests extends TestBase{
     //HomePageHelper homePage;
     LoginPageHelper loginPage;
@@ -46,7 +48,19 @@ public class LoginTests extends TestBase{
         "Name of the button is not 'Boards'");
 
     }
+    @Test(dataProviderClass = DataProviders.class, dataProvider ="loginNegativeDifferentMessages")
+    public void loginNegativeDifferentMessages(String login, String password, String message){
+        loginPage.loginNotAttl(login,password);
+        Assert.assertEquals(loginPage.getErrorMessage(),message,
+                "The error message is not correct");
+    }
 
+    @Test(dataProviderClass = DataProviders.class, dataProvider ="loginNegativeRandomData")
+    public void loginNegativeRandomData(String login, String password){
+        loginPage.loginNotAttl(login,password);
+        Assert.assertEquals(loginPage.getErrorMessage(),"There isn't an account for this username",
+                "The error message is not correct");
+    }
 
 
 }
