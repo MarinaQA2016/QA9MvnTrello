@@ -1,5 +1,6 @@
 package org.example.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -65,6 +66,7 @@ public class LoginPageHelper extends PageBase{
     public void fillInEmailField(String value) {
         // fill in email field
         editField(emailField,value);
+
     }
 
     public void fillInPasswordField(String value) {
