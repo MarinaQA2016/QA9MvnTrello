@@ -65,7 +65,7 @@ public class DataProviders {
         List<Object[]> data = new ArrayList<>();
         data.add(new Object[]{"marinaqatest2019@gmail.com", "marinaqa","Boards"});
         data.add(new Object[]{"marinaqatest2019@gmail.com", "marinaqa", "Boards"});
-        data.add(new Object[]{"marina1@test.ru", "pass3","Boards"});
+       // data.add(new Object[]{"marina1@test.ru", "pass3","Boards"});
 
         return data.iterator();
     }

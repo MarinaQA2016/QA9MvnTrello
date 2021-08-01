@@ -11,6 +11,7 @@ import org.example.pages.HomePageHelper;
 import org.example.util.LogLog4j;
 import org.openqa.selenium.*;
 
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -69,7 +70,7 @@ public class TestBase {
   }
 
 
-  @BeforeSuite
+  @BeforeSuite(alwaysRun = true)
   public void initTestSuite() throws IOException {
     SuiteConfiguration config = new SuiteConfiguration();
     baseUrl = config.getProperty("site.url");
@@ -79,8 +80,13 @@ public class TestBase {
     capabilities = config.getCapabilities();
   }
 
-  @BeforeMethod
+  @BeforeMethod(alwaysRun = true)
   public void initWebDriver() {
+    // --- how to launch as headless -----
+    //ChromeOptions options = new ChromeOptions();
+    //options.setHeadless(true);
+   // options.addArguments("--disable-gpu");
+    //driver = new EventFiringWebDriver(WebDriverPool.DEFAULT.getDriver(gridHubUrl, options));
     driver = new EventFiringWebDriver(WebDriverPool.DEFAULT.getDriver(gridHubUrl, capabilities));
    // driver = new EventFiringWebDriver(new ChromeDriver(options));
 
@@ -90,17 +96,18 @@ public class TestBase {
     homePage.waitUntilPageIsLoaded();
   }
 
-  @AfterMethod
+  @AfterMethod(alwaysRun = true)
   public void finishTest(ITestResult result){
     if (result.getStatus()==ITestResult.FAILURE)
     {
       log4j.error("Test was failure");
-     getScreen((TakesScreenshot) driver);
+      getScreen((TakesScreenshot) driver);
     }
   }
 
   @AfterMethod(alwaysRun = true)
   public void tearDown() {
     WebDriverPool.DEFAULT.dismissAll();
+
   }
 }
