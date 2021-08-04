@@ -96,6 +96,7 @@ public class TestBase {
     homePage.waitUntilPageIsLoaded();
   }
 
+
   @AfterMethod(alwaysRun = true)
   public void finishTest(ITestResult result){
     if (result.getStatus()==ITestResult.FAILURE)
